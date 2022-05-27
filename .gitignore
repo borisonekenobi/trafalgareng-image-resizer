@@ -53,3 +53,4 @@ nunit-*.xml
 project.lock.json
 project.fragment.lock.json
 artifacts/
+.vs/imageResizer/v17/.suo
