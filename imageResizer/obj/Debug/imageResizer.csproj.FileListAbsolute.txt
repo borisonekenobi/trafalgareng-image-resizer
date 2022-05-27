@@ -7,3 +7,4 @@ C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\obj\Debug\imageResize
 C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\obj\Debug\imageResizer.csproj.CoreCompileInputs.cache
 C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\obj\Debug\imageResizer.exe
 C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\obj\Debug\imageResizer.pdb
+C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\bin\Debug\imageResizer.exe.config

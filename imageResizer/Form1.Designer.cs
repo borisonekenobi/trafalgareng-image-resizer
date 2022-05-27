@@ -31,15 +31,15 @@ namespace imageResizer
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.foldersListLabel = new System.Windows.Forms.Label();
-            this.foldersList = new System.Windows.Forms.ListBox();
-            this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.foldersList = new System.Windows.Forms.ListBox();
+            this.foldersListLabel = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelNamingConvention = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonRun = new System.Windows.Forms.Button();
-            this.labelNamingConvention = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonBack = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -73,26 +73,25 @@ namespace imageResizer
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // buttonDelete
             // 
-            this.tabPage2.Controls.Add(this.textBox1);
-            this.tabPage2.Controls.Add(this.labelNamingConvention);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(768, 357);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDelete.Location = new System.Drawing.Point(606, 328);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 3;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
             // 
-            // foldersListLabel
+            // buttonAdd
             // 
-            this.foldersListLabel.AutoSize = true;
-            this.foldersListLabel.Location = new System.Drawing.Point(6, 3);
-            this.foldersListLabel.Name = "foldersListLabel";
-            this.foldersListLabel.Size = new System.Drawing.Size(44, 13);
-            this.foldersListLabel.TabIndex = 0;
-            this.foldersListLabel.Text = "Folders:";
+            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAdd.Location = new System.Drawing.Point(687, 328);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 2;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
             // 
             // foldersList
             // 
@@ -105,25 +104,44 @@ namespace imageResizer
             this.foldersList.Size = new System.Drawing.Size(753, 290);
             this.foldersList.TabIndex = 1;
             // 
-            // buttonAdd
+            // foldersListLabel
             // 
-            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAdd.Location = new System.Drawing.Point(687, 328);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 2;
-            this.buttonAdd.Text = "Add";
-            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.foldersListLabel.AutoSize = true;
+            this.foldersListLabel.Location = new System.Drawing.Point(6, 3);
+            this.foldersListLabel.Name = "foldersListLabel";
+            this.foldersListLabel.Size = new System.Drawing.Size(44, 13);
+            this.foldersListLabel.TabIndex = 0;
+            this.foldersListLabel.Text = "Folders:";
             // 
-            // buttonDelete
+            // tabPage2
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.Location = new System.Drawing.Point(606, 328);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete.TabIndex = 3;
-            this.buttonDelete.Text = "Delete";
-            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.labelNamingConvention);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(768, 357);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(9, 19);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(753, 20);
+            this.textBox1.TabIndex = 1;
+            // 
+            // labelNamingConvention
+            // 
+            this.labelNamingConvention.AutoSize = true;
+            this.labelNamingConvention.Location = new System.Drawing.Point(6, 3);
+            this.labelNamingConvention.Name = "labelNamingConvention";
+            this.labelNamingConvention.Size = new System.Drawing.Size(100, 13);
+            this.labelNamingConvention.TabIndex = 0;
+            this.labelNamingConvention.Text = "Naming Convention";
             // 
             // buttonNext
             // 
@@ -143,24 +161,7 @@ namespace imageResizer
             this.buttonRun.TabIndex = 2;
             this.buttonRun.Text = "Run";
             this.buttonRun.UseVisualStyleBackColor = true;
-            // 
-            // labelNamingConvention
-            // 
-            this.labelNamingConvention.AutoSize = true;
-            this.labelNamingConvention.Location = new System.Drawing.Point(6, 3);
-            this.labelNamingConvention.Name = "labelNamingConvention";
-            this.labelNamingConvention.Size = new System.Drawing.Size(100, 13);
-            this.labelNamingConvention.TabIndex = 0;
-            this.labelNamingConvention.Text = "Naming Convention";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(9, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(753, 20);
-            this.textBox1.TabIndex = 1;
+            this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
             // 
             // buttonBack
             // 
