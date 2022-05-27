@@ -8,3 +8,15 @@ C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\obj\Debug\imageResize
 C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\obj\Debug\imageResizer.exe
 C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\obj\Debug\imageResizer.pdb
 C:\dev\visualstudio\imageResizer\imageResizer\imageResizer\bin\Debug\imageResizer.exe.config
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\bin\Debug\imageResizer.exe.config
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\bin\Debug\imageResizer.exe
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\bin\Debug\imageResizer.pdb
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.csproj.AssemblyReference.cache
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.csproj.SuggestedBindingRedirects.cache
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.Form1.resources
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.Properties.Resources.resources
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.csproj.GenerateResource.cache
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.csproj.CoreCompileInputs.cache
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.exe
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.pdb
+C:\Users\Admin\OneDrive\Documents\Github Projects\imageResizer\imageResizer\obj\Debug\imageResizer.AddPathForm.resources

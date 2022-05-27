@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,23 +43,59 @@ namespace imageResizer
             }
         }
 
-        private void ResizeImages()
+        private Size calculateReducedSize(float horizontalRes, float verticalRes, int maxHorizontalRes, int maxVerticalRes)
         {
-            string sourceBitmapPath = @"C:\Users\Kiril\Documents\temp\262\Screenshot.jpg";
-            string destinationBitmapPath = @"C:\Users\Kiril\Documents\temp\262\Screenshot.reduced.jpg";
-            ResizeImage(sourceBitmapPath, destinationBitmapPath, 500, 500);
+            float ratio = maxHorizontalRes / (float) horizontalRes;
+            int calculatedVerticalRes = (int) (ratio * verticalRes);
+
+            if (calculatedVerticalRes < maxVerticalRes)
+            {
+                return new Size(maxHorizontalRes, calculatedVerticalRes);
+            }
+            ratio = maxVerticalRes / (float) verticalRes;
+            int calculatedHorizontalRes = (int) (ratio * horizontalRes);
+            return new Size(calculatedHorizontalRes, maxVerticalRes);
+        }
+
+        private void ResizeImages(string sourcePath)
+        {
+            string[] files = Directory.GetFiles(sourcePath);
+            string destinationPath = sourcePath + "\\reduced\\";
+
+            System.IO.Directory.CreateDirectory(destinationPath);
+
+            foreach (string file in files)
+            {
+                string filename = Path.GetFileName(file);
+
+                string sourceBitmapPath = sourcePath + "\\" + filename;
+                string destinationBitmapPath = destinationPath + filename;
+
+                try {
+                    ResizeImage(sourceBitmapPath, destinationBitmapPath);
+                } catch (Exception ex) {
+                    Console.WriteLine(ex.Message + " - " + file);
+                }
+            }
         }
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
-            ResizeImages();
+            foreach (var path in this.foldersList.Items)
+            {
+                ResizeImages(path.ToString());
+            }
+            MessageBox.Show("Done!", "Run", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public Bitmap ResizeImage(string sourcePath, string destinationPath, int width, int height)
+        public void ResizeImage(string sourcePath, string destinationPath)
         {
             Image sourceBitmap = new Bitmap(sourcePath);
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
+
+            var reducedSize = calculateReducedSize(sourceBitmap.Width, sourceBitmap.Height, 1280, 1024);
+
+            var destRect = new Rectangle(0, 0, reducedSize.Width, reducedSize.Height);
+            var destImage = new Bitmap(reducedSize.Width, reducedSize.Height);
 
             destImage.SetResolution(sourceBitmap.HorizontalResolution, sourceBitmap.VerticalResolution);
 
@@ -78,8 +115,6 @@ namespace imageResizer
             }
 
             SaveJpg(destImage, destinationPath);
-
-            return destImage;
         }
 
         private void SaveJpg(Bitmap bitmap, string destinationPath)
@@ -112,6 +147,24 @@ namespace imageResizer
                 }
             }
             return null;
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            AddPathForm form = new AddPathForm();
+            var result = form.ShowDialog();
+            if (result == DialogResult.OK) this.foldersList.Items.Add(form.FolderPath);
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (this.foldersList.SelectedItems.Count == 0) return;
+            this.foldersList.Items.Remove(this.foldersList.SelectedItem);
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
