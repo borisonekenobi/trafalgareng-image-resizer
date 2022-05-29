@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace imageResizer
@@ -58,9 +50,10 @@ namespace imageResizer
                 case 0: options.MaxImageSize = new Size(640, 480); break;
                 case 1: options.MaxImageSize = new Size(800, 600); break;
                 case 2: options.MaxImageSize = new Size(1024, 768); break;
-                case 3: options.MaxImageSize = new Size(1280, 1025); break;
-                default: options.MaxImageSize = new Size(1280, 1025); break;
+                case 3: options.MaxImageSize = new Size(1280, 1024); break;
+                default: options.MaxImageSize = new Size(1280, 1024); break;
             }
+            options.FolderName = this.comboBox3.Text;
 
             int numImages = 0;
             foreach (var path in this.foldersList.Items)
@@ -129,6 +122,12 @@ namespace imageResizer
         {
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 3;
+            comboBox3.SelectedIndex = 0;
+        }
+
+        private void buttonAbout_Click(object sender, EventArgs e)
+        {
+            new AboutBox().ShowDialog();
         }
     }
 }

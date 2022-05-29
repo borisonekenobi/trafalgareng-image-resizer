@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -24,6 +19,7 @@ namespace imageResizer
         private readonly IProgress<int> TotalProgress;
         private readonly IProgress<int> Progress;
         private bool stopProcessing = false;
+        private readonly StringBuilder log = new StringBuilder();
 
         public ProgressBars()
         {
@@ -38,22 +34,28 @@ namespace imageResizer
             {
                 _showMore = false;
                 this.labelShowMore.Text = "Show More <";
+                this.Size = new Size(700, 175);
+                this.listBox1.Visible = false;
                 return;
             }
             _showMore = true;
-            this.labelShowMore.Text = "Show Less v";
+            this.labelShowMore.Text = "Show Less ∨";
+            this.Size = new Size(700, 300);
+            this.listBox1.Visible = true;
         }
 
         private void ScaleImages()
         {
             foreach (var path in FolderList)
             {
+                UpdateLog("Starting folder: " + path.ToString());
                 if (stopProcessing) break;
                 DirectoryInfo dir = new DirectoryInfo(path.ToString());
                 FileInfo[] imageFiles = dir.GetFiles("*.*");
                 var currentNumImages = imageFiles.Length;
                 ResizeImages(path.ToString());
             }
+            Console.Write(log.ToString());
             this.buttonCancel.Invoke(new MethodInvoker(() => this.buttonCancel.Text = "Finish"));
             if (stopProcessing) this.Invoke(new MethodInvoker(() => this.Close()));
         }
@@ -69,8 +71,12 @@ namespace imageResizer
         private void ResizeImages(string sourcePath)
         {
             string[] files = Directory.GetFiles(sourcePath);
-            if (files.Length <= 0) return;
-            string destinationPath = sourcePath + "\\reduced\\";
+            if (files.Length <= 0)
+            {
+                UpdateLog("Empty Directory");
+                return;
+            }
+            string destinationPath = sourcePath + "\\" + Options.FolderName + "\\";
 
             System.IO.Directory.CreateDirectory(destinationPath);
 
@@ -81,8 +87,9 @@ namespace imageResizer
             {
                 if (stopProcessing) break;
 
+                UpdateLog("Loading: " + files[i]);
                 string sourceBitmapPath = sourcePath + "\\" + Path.GetFileName(files[i]);
-                string destinationBitmapPath = destinationPath + Options.NamingConvention.Replace("%n", imgIndex.ToString().PadLeft(digitCount, '0')) + ".jpg";
+                string destinationBitmapPath = destinationPath + Options.NamingConvention.Replace("%n", imgIndex.ToString().PadLeft(digitCount, '0')) + ".jpeg";
 
                 try
                 {
@@ -91,7 +98,7 @@ namespace imageResizer
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message + " - " + files[i]);
+                    UpdateLog("Could not load: " + files[i]);
                 }
 
                 Progress.Report(i + 1);
@@ -102,6 +109,7 @@ namespace imageResizer
         private void ResizeImage(string sourcePath, string destinationPath)
         {
             Image sourceBitmap = LoadImage(sourcePath);
+            UpdateLog("Loaded image: " + sourcePath);
 
             var reducedSize = CalculateReducedSize(sourceBitmap.Width, sourceBitmap.Height, Options.MaxImageSize);
 
@@ -125,7 +133,7 @@ namespace imageResizer
                 }
             }
 
-            SaveJpg(destImage, destinationPath);
+            SaveJpeg(destImage, destinationPath);
         }
 
         private Image LoadImage(string path)
@@ -150,10 +158,10 @@ namespace imageResizer
             return new Size(calculatedHorizontalRes, maxSize.Height);
         }
 
-        private void SaveJpg(Bitmap bitmap, string destinationPath)
+        private void SaveJpeg(Bitmap bitmap, string destinationPath)
         {
             // Get a bitmap.
-            ImageCodecInfo jgpEncoder = GetEncoder(ImageFormat.Jpeg);
+            ImageCodecInfo jpegEncoder = GetEncoder(ImageFormat.Jpeg);
 
             // Create an Encoder object based on the GUID for the Quality parameter category.
             System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
@@ -166,7 +174,8 @@ namespace imageResizer
 
             EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 90L);
             myEncoderParameters.Param[0] = myEncoderParameter;
-            bitmap.Save(destinationPath, jgpEncoder, myEncoderParameters);
+            bitmap.Save(destinationPath, jpegEncoder, myEncoderParameters);
+            UpdateLog("Saved image: " + destinationPath);
         }
 
         private ImageCodecInfo GetEncoder(ImageFormat format)
@@ -180,6 +189,12 @@ namespace imageResizer
                 }
             }
             return null;
+        }
+
+        private void UpdateLog(string currentLog)
+        {
+            log.AppendLine(currentLog);
+            listBox1.Invoke(new MethodInvoker(() => listBox1.Items.Add(currentLog)));
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

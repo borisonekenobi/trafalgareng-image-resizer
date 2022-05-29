@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace imageResizer
 {
@@ -11,5 +6,6 @@ namespace imageResizer
     {
         public string NamingConvention { get; set; }
         public Size MaxImageSize { get; set; }
+        public string FolderName { get; set; }
     }
 }
