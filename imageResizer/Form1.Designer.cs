@@ -29,6 +29,7 @@ namespace imageResizer
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonDelete = new System.Windows.Forms.Button();
@@ -36,12 +37,14 @@ namespace imageResizer
             this.foldersList = new System.Windows.Forms.ListBox();
             this.foldersListLabel = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.labelNamingConvention = new System.Windows.Forms.Label();
-            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonOptions = new System.Windows.Forms.Button();
             this.buttonRun = new System.Windows.Forms.Button();
             this.buttonBack = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.labelImageSize = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -98,14 +101,18 @@ namespace imageResizer
             // 
             // foldersList
             // 
+            this.foldersList.AllowDrop = true;
             this.foldersList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.foldersList.FormattingEnabled = true;
             this.foldersList.Location = new System.Drawing.Point(9, 19);
             this.foldersList.Name = "foldersList";
+            this.foldersList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.foldersList.Size = new System.Drawing.Size(753, 290);
             this.foldersList.TabIndex = 1;
+            this.foldersList.DragDrop += new System.Windows.Forms.DragEventHandler(this.foldersList_DragDrop);
+            this.foldersList.DragEnter += new System.Windows.Forms.DragEventHandler(this.foldersList_DragEnter);
             // 
             // foldersListLabel
             // 
@@ -118,7 +125,9 @@ namespace imageResizer
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.comboBox2);
+            this.tabPage2.Controls.Add(this.labelImageSize);
+            this.tabPage2.Controls.Add(this.comboBox1);
             this.tabPage2.Controls.Add(this.labelNamingConvention);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -127,15 +136,6 @@ namespace imageResizer
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(9, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(753, 20);
-            this.textBox1.TabIndex = 1;
             // 
             // labelNamingConvention
             // 
@@ -146,16 +146,16 @@ namespace imageResizer
             this.labelNamingConvention.TabIndex = 0;
             this.labelNamingConvention.Text = "Naming Convention";
             // 
-            // buttonNext
+            // buttonOptions
             // 
-            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNext.Location = new System.Drawing.Point(632, 415);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(75, 23);
-            this.buttonNext.TabIndex = 1;
-            this.buttonNext.Text = "Next";
-            this.buttonNext.UseVisualStyleBackColor = true;
-            this.buttonNext.Click += new System.EventHandler(this.buttonNext_Click);
+            this.buttonOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOptions.Location = new System.Drawing.Point(12, 415);
+            this.buttonOptions.Name = "buttonOptions";
+            this.buttonOptions.Size = new System.Drawing.Size(75, 23);
+            this.buttonOptions.TabIndex = 1;
+            this.buttonOptions.Text = "Options...";
+            this.buttonOptions.UseVisualStyleBackColor = true;
+            this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
             // 
             // buttonRun
             // 
@@ -172,24 +172,58 @@ namespace imageResizer
             // buttonBack
             // 
             this.buttonBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBack.Enabled = false;
-            this.buttonBack.Location = new System.Drawing.Point(551, 415);
+            this.buttonBack.Location = new System.Drawing.Point(12, 415);
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(75, 23);
             this.buttonBack.TabIndex = 3;
             this.buttonBack.Text = "Back";
             this.buttonBack.UseVisualStyleBackColor = true;
+            this.buttonBack.Visible = false;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(470, 415);
+            this.buttonCancel.Location = new System.Drawing.Point(632, 415);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 4;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.Text = "Exit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "P (%n)",
+            "IMG %n"});
+            this.comboBox1.Location = new System.Drawing.Point(6, 19);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(756, 21);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // labelImageSize
+            // 
+            this.labelImageSize.AutoSize = true;
+            this.labelImageSize.Location = new System.Drawing.Point(6, 54);
+            this.labelImageSize.Name = "labelImageSize";
+            this.labelImageSize.Size = new System.Drawing.Size(59, 13);
+            this.labelImageSize.TabIndex = 3;
+            this.labelImageSize.Text = "Image Size";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Smaller: 640 x 480",
+            "Small: 800 x 600",
+            "Medium: 1024 x 768",
+            "Large: 1280 x 1024"});
+            this.comboBox2.Location = new System.Drawing.Point(6, 70);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(756, 21);
+            this.comboBox2.TabIndex = 4;
             // 
             // Form1
             // 
@@ -199,10 +233,12 @@ namespace imageResizer
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonRun);
-            this.Controls.Add(this.buttonNext);
+            this.Controls.Add(this.buttonOptions);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Image Resizer";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -221,12 +257,14 @@ namespace imageResizer
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.ListBox foldersList;
         private System.Windows.Forms.Label foldersListLabel;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label labelNamingConvention;
-        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonOptions;
         private System.Windows.Forms.Button buttonRun;
         private System.Windows.Forms.Button buttonBack;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label labelImageSize;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 

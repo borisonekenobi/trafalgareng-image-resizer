@@ -23,13 +23,13 @@ namespace imageResizer
             tabControl1.SizeMode = TabSizeMode.Fixed;
         }
 
-        private void buttonNext_Click(object sender, EventArgs e)
+        private void buttonOptions_Click(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 0)
             {
                 tabControl1.SelectedIndex = 1;
-                buttonBack.Enabled = true;
-                buttonNext.Enabled = false;
+                buttonBack.Visible = true;
+                buttonOptions.Visible = false;
             }
         }
 
@@ -38,133 +38,97 @@ namespace imageResizer
             if (tabControl1.SelectedIndex == 1)
             {
                 tabControl1.SelectedIndex = 0;
-                buttonBack.Enabled = false;
-                buttonNext.Enabled = true;
-            }
-        }
-
-        private Size calculateReducedSize(float horizontalRes, float verticalRes, int maxHorizontalRes, int maxVerticalRes)
-        {
-            float ratio = maxHorizontalRes / (float) horizontalRes;
-            int calculatedVerticalRes = (int) (ratio * verticalRes);
-
-            if (calculatedVerticalRes < maxVerticalRes)
-            {
-                return new Size(maxHorizontalRes, calculatedVerticalRes);
-            }
-            ratio = maxVerticalRes / (float) verticalRes;
-            int calculatedHorizontalRes = (int) (ratio * horizontalRes);
-            return new Size(calculatedHorizontalRes, maxVerticalRes);
-        }
-
-        private void ResizeImages(string sourcePath)
-        {
-            string[] files = Directory.GetFiles(sourcePath);
-            string destinationPath = sourcePath + "\\reduced\\";
-
-            System.IO.Directory.CreateDirectory(destinationPath);
-
-            foreach (string file in files)
-            {
-                string filename = Path.GetFileName(file);
-
-                string sourceBitmapPath = sourcePath + "\\" + filename;
-                string destinationBitmapPath = destinationPath + filename;
-
-                try {
-                    ResizeImage(sourceBitmapPath, destinationBitmapPath);
-                } catch (Exception ex) {
-                    Console.WriteLine(ex.Message + " - " + file);
-                }
+                buttonBack.Visible = false;
+                buttonOptions.Visible = true;
             }
         }
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
+            if (this.foldersList.Items.Count == 0)
+            {
+                MessageBox.Show("Select at least 1 folder", "Run", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var options = new Options();
+            options.NamingConvention = this.comboBox1.Text;
+            switch (this.comboBox2.SelectedIndex)
+            {
+                case 0: options.MaxImageSize = new Size(640, 480); break;
+                case 1: options.MaxImageSize = new Size(800, 600); break;
+                case 2: options.MaxImageSize = new Size(1024, 768); break;
+                case 3: options.MaxImageSize = new Size(1280, 1025); break;
+                default: options.MaxImageSize = new Size(1280, 1025); break;
+            }
+
+            int numImages = 0;
             foreach (var path in this.foldersList.Items)
             {
-                ResizeImages(path.ToString());
+                DirectoryInfo dir = new DirectoryInfo(path.ToString());
+                FileInfo[] imageFiles = dir.GetFiles("*.*");
+                numImages += imageFiles.Length;
             }
-            MessageBox.Show("Done!", "Run", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
 
-        public void ResizeImage(string sourcePath, string destinationPath)
-        {
-            Image sourceBitmap = new Bitmap(sourcePath);
-
-            var reducedSize = calculateReducedSize(sourceBitmap.Width, sourceBitmap.Height, 1280, 1024);
-
-            var destRect = new Rectangle(0, 0, reducedSize.Width, reducedSize.Height);
-            var destImage = new Bitmap(reducedSize.Width, reducedSize.Height);
-
-            destImage.SetResolution(sourceBitmap.HorizontalResolution, sourceBitmap.VerticalResolution);
-
-            using (var graphics = Graphics.FromImage(destImage))
+            ProgressBars form = new ProgressBars
             {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
-                    graphics.DrawImage(sourceBitmap, destRect, 0, 0, sourceBitmap.Width, sourceBitmap.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
-
-            SaveJpg(destImage, destinationPath);
-        }
-
-        private void SaveJpg(Bitmap bitmap, string destinationPath)
-        {
-            // Get a bitmap.
-            ImageCodecInfo jgpEncoder = GetEncoder(ImageFormat.Jpeg);
-
-            // Create an Encoder object based on the GUID for the Quality parameter category.
-            System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
-
-            // Create an EncoderParameters object.
-            // An EncoderParameters object has an array of EncoderParameter
-            // objects. In this case, there is only one
-            // EncoderParameter object in the array.
-            EncoderParameters myEncoderParameters = new EncoderParameters(1);
-
-            EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 90L);
-            myEncoderParameters.Param[0] = myEncoderParameter;
-            bitmap.Save(destinationPath, jgpEncoder, myEncoderParameters);
-        }
-
-        private ImageCodecInfo GetEncoder(ImageFormat format)
-        {
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
-            foreach (ImageCodecInfo codec in codecs)
-            {
-                if (codec.FormatID == format.Guid)
-                {
-                    return codec;
-                }
-            }
-            return null;
+                FolderList = this.foldersList.Items,
+                NumFiles = numImages,
+                Options = options
+            };
+            form.ShowDialog();
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            AddPathForm form = new AddPathForm();
-            var result = form.ShowDialog();
-            if (result == DialogResult.OK) this.foldersList.Items.Add(form.FolderPath);
+            using (var folderBrowserDialog = new FolderBrowserDialog())
+            {
+                DialogResult result = folderBrowserDialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
+                {
+                    foldersList.Items.Add(folderBrowserDialog.SelectedPath);
+                }
+            }
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             if (this.foldersList.SelectedItems.Count == 0) return;
-            this.foldersList.Items.Remove(this.foldersList.SelectedItem);
+            for (int i = this.foldersList.SelectedIndices.Count - 1; i >= 0; i--)
+            {
+                this.foldersList.Items.RemoveAt(this.foldersList.SelectedIndices[i]);
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void foldersList_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string filePath in files)
+                {
+                    if ((File.GetAttributes(filePath) & FileAttributes.Directory) == FileAttributes.Directory) this.foldersList.Items.Add(filePath);
+                }
+            }
+        }
+
+        private void foldersList_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 3;
         }
     }
 }
