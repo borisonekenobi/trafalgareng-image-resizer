@@ -33,9 +33,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.labelShowMore = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.labelShowMore = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -74,21 +74,10 @@
             this.progressBar2.Size = new System.Drawing.Size(660, 10);
             this.progressBar2.TabIndex = 3;
             // 
-            // labelShowMore
-            // 
-            this.labelShowMore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelShowMore.AutoSize = true;
-            this.labelShowMore.Location = new System.Drawing.Point(602, 79);
-            this.labelShowMore.Name = "labelShowMore";
-            this.labelShowMore.Size = new System.Drawing.Size(70, 13);
-            this.labelShowMore.TabIndex = 4;
-            this.labelShowMore.Text = "Show More <";
-            this.labelShowMore.Click += new System.EventHandler(this.labelShowMore_Click);
-            // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(597, 97);
+            this.buttonCancel.Location = new System.Drawing.Point(597, 126);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -96,33 +85,42 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // listBox1
+            // labelShowMore
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.labelShowMore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelShowMore.AutoSize = true;
+            this.labelShowMore.Location = new System.Drawing.Point(12, 91);
+            this.labelShowMore.Name = "labelShowMore";
+            this.labelShowMore.Size = new System.Drawing.Size(70, 13);
+            this.labelShowMore.TabIndex = 4;
+            this.labelShowMore.Text = "Show More <";
+            this.labelShowMore.Click += new System.EventHandler(this.labelShowMore_Click);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.BackColor = System.Drawing.SystemColors.WindowText;
-            this.listBox1.ForeColor = System.Drawing.SystemColors.Window;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 95);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox1.Size = new System.Drawing.Size(660, 4);
-            this.listBox1.TabIndex = 6;
-            this.listBox1.Visible = false;
+            this.label3.BackColor = System.Drawing.SystemColors.WindowText;
+            this.label3.ForeColor = System.Drawing.SystemColors.Window;
+            this.label3.Location = new System.Drawing.Point(12, 107);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(660, 10);
+            this.label3.TabIndex = 8;
+            this.label3.Visible = false;
             // 
             // ProgressBars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 136);
-            this.Controls.Add(this.listBox1);
+            this.ClientSize = new System.Drawing.Size(684, 161);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.labelShowMore);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -141,8 +139,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ProgressBar progressBar2;
-        private System.Windows.Forms.Label labelShowMore;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label labelShowMore;
+        private System.Windows.Forms.Label label3;
     }
 }

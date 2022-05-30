@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,7 +22,7 @@ namespace imageResizer
         private readonly IProgress<int> TotalProgress;
         private readonly IProgress<int> Progress;
         private bool stopProcessing = false;
-        private readonly StringBuilder log = new StringBuilder();
+        private readonly Collection<string> log = new Collection<string>();
 
         public ProgressBars()
         {
@@ -34,14 +37,14 @@ namespace imageResizer
             {
                 _showMore = false;
                 this.labelShowMore.Text = "Show More <";
-                this.Size = new Size(700, 175);
-                this.listBox1.Visible = false;
+                this.Size = new Size(700, 200);
+                this.label3.Visible = false;
                 return;
             }
             _showMore = true;
             this.labelShowMore.Text = "Show Less ∨";
             this.Size = new Size(700, 300);
-            this.listBox1.Visible = true;
+            this.label3.Visible = true;
         }
 
         private void ScaleImages()
@@ -55,6 +58,7 @@ namespace imageResizer
                 var currentNumImages = imageFiles.Length;
                 ResizeImages(path.ToString());
             }
+            UpdateLog("Done!");
             Console.Write(log.ToString());
             this.buttonCancel.Invoke(new MethodInvoker(() => this.buttonCancel.Text = "Finish"));
             if (stopProcessing) this.Invoke(new MethodInvoker(() => this.Close()));
@@ -89,7 +93,11 @@ namespace imageResizer
 
                 UpdateLog("Loading: " + files[i]);
                 string sourceBitmapPath = sourcePath + "\\" + Path.GetFileName(files[i]);
-                string destinationBitmapPath = destinationPath + Options.NamingConvention.Replace("%n", imgIndex.ToString().PadLeft(digitCount, '0')) + ".jpeg";
+                string destinationBitmapPath = destinationPath + 
+                    Options.NamingConvention
+                    .Replace("%n", imgIndex.ToString().PadLeft(digitCount, '0'))
+                    .Replace("%f", Path.GetFileName(files[i])) + 
+                    ".jpeg";
 
                 try
                 {
@@ -103,6 +111,7 @@ namespace imageResizer
 
                 Progress.Report(i + 1);
                 TotalProgress.Report(progressBar2.Value + 1);
+                Thread.Sleep(1000);
             }
         }
 
@@ -133,7 +142,7 @@ namespace imageResizer
                 }
             }
 
-            SaveJpeg(destImage, destinationPath);
+            SaveJpeg(sourcePath, destImage, destinationPath);
         }
 
         private Image LoadImage(string path)
@@ -158,7 +167,7 @@ namespace imageResizer
             return new Size(calculatedHorizontalRes, maxSize.Height);
         }
 
-        private void SaveJpeg(Bitmap bitmap, string destinationPath)
+        private void SaveJpeg(string sourcePath, Bitmap bitmap, string destinationPath)
         {
             // Get a bitmap.
             ImageCodecInfo jpegEncoder = GetEncoder(ImageFormat.Jpeg);
@@ -175,6 +184,8 @@ namespace imageResizer
             EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 90L);
             myEncoderParameters.Param[0] = myEncoderParameter;
             bitmap.Save(destinationPath, jpegEncoder, myEncoderParameters);
+            File.SetCreationTime(destinationPath, File.GetCreationTime(sourcePath));
+            File.SetLastWriteTime(destinationPath, File.GetLastWriteTime(sourcePath));
             UpdateLog("Saved image: " + destinationPath);
         }
 
@@ -193,8 +204,9 @@ namespace imageResizer
 
         private void UpdateLog(string currentLog)
         {
-            log.AppendLine(currentLog);
-            listBox1.Invoke(new MethodInvoker(() => listBox1.Items.Add(currentLog)));
+            log.Add(currentLog);
+            label3.Invoke(new MethodInvoker(() => label3.Text = string.Join("\n", log.Where((e, i) => i >= log.Count() - 8))));
+
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
