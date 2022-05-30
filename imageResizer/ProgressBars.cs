@@ -59,7 +59,6 @@ namespace imageResizer
                 ResizeImages(path.ToString());
             }
             UpdateLog("Done!");
-            Console.Write(log.ToString());
             this.buttonCancel.Invoke(new MethodInvoker(() => this.buttonCancel.Text = "Finish"));
             if (stopProcessing) this.Invoke(new MethodInvoker(() => this.Close()));
         }
@@ -107,6 +106,7 @@ namespace imageResizer
                 catch (Exception ex)
                 {
                     UpdateLog("Could not load: " + files[i]);
+                    Console.WriteLine(ex.Message);
                 }
 
                 Progress.Report(i + 1);
@@ -206,7 +206,7 @@ namespace imageResizer
         {
             log.Add(currentLog);
             label3.Invoke(new MethodInvoker(() => label3.Text = string.Join("\n", log.Where((e, i) => i >= log.Count() - 8))));
-
+            Console.Write(currentLog);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
