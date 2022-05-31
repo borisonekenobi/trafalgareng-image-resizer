@@ -83,7 +83,7 @@ namespace imageResizer
 
             System.IO.Directory.CreateDirectory(destinationPath);
 
-            int imgIndex = 0;
+            int imgIndex = 1;
             progressBar1.Invoke(new MethodInvoker(() => progressBar1.Maximum = files.Length));
             int digitCount = (int)Math.Log10(files.Length) + 1;
             for (int i = 0; i < files.Length; i++)
@@ -111,7 +111,6 @@ namespace imageResizer
 
                 Progress.Report(i + 1);
                 TotalProgress.Report(progressBar2.Value + 1);
-                Thread.Sleep(1000);
             }
         }
 
