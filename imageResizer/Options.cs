@@ -7,5 +7,6 @@ namespace imageResizer
         public string NamingConvention { get; set; }
         public Size MaxImageSize { get; set; }
         public string FolderName { get; set; }
+        public int ReducedFolder { get; set; }
     }
 }

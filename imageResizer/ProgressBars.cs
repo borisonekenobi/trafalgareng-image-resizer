@@ -15,10 +15,10 @@ namespace imageResizer
 {
     public partial class ProgressBars : Form
     {
-        private bool _showMore = false;
         public ICollection FolderList { get; set; }
         public int NumFiles { get; set; }
         internal Options Options { get; set; }
+        private bool _showMore = false;
         private readonly IProgress<int> TotalProgress;
         private readonly IProgress<int> Progress;
         private bool stopProcessing = false;
@@ -56,6 +56,14 @@ namespace imageResizer
                 DirectoryInfo dir = new DirectoryInfo(path.ToString());
                 FileInfo[] imageFiles = dir.GetFiles("*.*");
                 var currentNumImages = imageFiles.Length;
+                if (Options.ReducedFolder == 0 && Directory.Exists(path + "\\" + Options.FolderName + "\\")) Directory.Delete(path + "\\" + Options.FolderName + "\\", true);
+                else if (Options.ReducedFolder == 1 && Directory.Exists(path + "\\" + Options.FolderName + "\\"))
+                {
+                    Progress.Report(progressBar1.Maximum);
+                    TotalProgress.Report(progressBar2.Value + currentNumImages);
+                    UpdateLog("Skipped: " + path.ToString());
+                    continue;
+                }
                 ResizeImages(path.ToString());
             }
             UpdateLog("Done!");
@@ -91,11 +99,15 @@ namespace imageResizer
                 if (stopProcessing) break;
 
                 UpdateLog("Loading: " + files[i]);
+                var creationTime = File.GetCreationTime(sourcePath);
                 string sourceBitmapPath = sourcePath + "\\" + Path.GetFileName(files[i]);
-                string destinationBitmapPath = destinationPath + 
+                string destinationBitmapPath = destinationPath +
                     Options.NamingConvention
                     .Replace("%n", imgIndex.ToString().PadLeft(digitCount, '0'))
-                    .Replace("%f", Path.GetFileName(files[i])) + 
+                    .Replace("%f", Path.GetFileName(files[i]))
+                    .Replace("%y", creationTime.Year.ToString())
+                    .Replace("%m", creationTime.Month.ToString())
+                    .Replace("%d", creationTime.Day.ToString()) +
                     ".jpeg";
 
                 try
@@ -205,7 +217,7 @@ namespace imageResizer
         {
             log.Add(currentLog);
             label3.Invoke(new MethodInvoker(() => label3.Text = string.Join("\n", log.Where((e, i) => i >= log.Count() - 8))));
-            Console.Write(currentLog);
+            Console.WriteLine(currentLog);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

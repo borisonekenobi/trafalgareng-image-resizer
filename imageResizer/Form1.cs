@@ -54,6 +54,9 @@ namespace imageResizer
                 default: options.MaxImageSize = new Size(1280, 1024); break;
             }
             options.FolderName = this.comboBox3.Text;
+            if (this.radioButton1.Checked) options.ReducedFolder = 0;
+            else if (this.radioButton2.Checked) options.ReducedFolder = 1;
+            else if (this.radioButton3.Checked) options.ReducedFolder = 2;
 
             int numImages = 0;
             foreach (var path in this.foldersList.Items)
