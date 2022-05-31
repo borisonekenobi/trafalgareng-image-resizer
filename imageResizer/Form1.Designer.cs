@@ -290,9 +290,9 @@ namespace imageResizer
             this.radioButton3.AutoSize = true;
             this.radioButton3.Location = new System.Drawing.Point(6, 221);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(211, 17);
+            this.radioButton3.Size = new System.Drawing.Size(250, 17);
             this.radioButton3.TabIndex = 11;
-            this.radioButton3.Text = "No Changes To Reduced Image Folder";
+            this.radioButton3.Text = "No Changes To Existing Reduced Image Folder";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton2
@@ -311,10 +311,10 @@ namespace imageResizer
             this.radioButton1.Checked = true;
             this.radioButton1.Location = new System.Drawing.Point(6, 175);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(172, 17);
+            this.radioButton1.Size = new System.Drawing.Size(211, 17);
             this.radioButton1.TabIndex = 9;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Delete Reduced Images Folder";
+            this.radioButton1.Text = "Delete Existing Reduced Images Folder";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // Form1
