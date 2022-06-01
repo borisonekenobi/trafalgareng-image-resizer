@@ -18,7 +18,7 @@ namespace imageResizer
         public ICollection FolderList { get; set; }
         public int NumFiles { get; set; }
         internal Options Options { get; set; }
-        private bool _showMore = false;
+        private bool _showMore = true;
         private readonly IProgress<int> TotalProgress;
         private readonly IProgress<int> Progress;
         private bool stopProcessing = false;

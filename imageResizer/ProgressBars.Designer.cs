@@ -77,7 +77,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(597, 126);
+            this.buttonCancel.Location = new System.Drawing.Point(597, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -105,15 +105,14 @@
             this.label3.ForeColor = System.Drawing.SystemColors.Window;
             this.label3.Location = new System.Drawing.Point(12, 107);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(660, 10);
+            this.label3.Size = new System.Drawing.Size(660, 110);
             this.label3.TabIndex = 8;
-            this.label3.Visible = false;
             // 
             // ProgressBars
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 161);
+            this.ClientSize = new System.Drawing.Size(684, 261);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.labelShowMore);
             this.Controls.Add(this.progressBar2);
