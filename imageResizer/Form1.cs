@@ -89,11 +89,7 @@ namespace imageResizer
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (this.foldersList.SelectedItems.Count == 0) return;
-            for (int i = this.foldersList.SelectedIndices.Count - 1; i >= 0; i--)
-            {
-                this.foldersList.Items.RemoveAt(this.foldersList.SelectedIndices[i]);
-            }
+            Delete();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -149,6 +145,19 @@ namespace imageResizer
                 {
                     foldersList.SetSelected(i, true);
                 }
+            }
+
+            if (e.KeyCode == Keys.Delete)
+            {
+                Delete();
+            }
+        }
+
+        private void Delete()
+        {
+            for (int i = this.foldersList.SelectedIndices.Count - 1; i >= 0; i--)
+            {
+                this.foldersList.Items.RemoveAt(this.foldersList.SelectedIndices[i]);
             }
         }
     }
