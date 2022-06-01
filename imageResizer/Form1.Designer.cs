@@ -31,12 +31,6 @@ namespace imageResizer
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.buttonDelete = new System.Windows.Forms.Button();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.foldersList = new System.Windows.Forms.ListBox();
-            this.foldersListLabel = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -53,9 +47,18 @@ namespace imageResizer
             this.buttonBack = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonAbout = new System.Windows.Forms.Button();
+            this.foldersListLabel = new System.Windows.Forms.Label();
+            this.foldersList = new System.Windows.Forms.ListBox();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -71,81 +74,10 @@ namespace imageResizer
             this.tabControl1.Size = new System.Drawing.Size(400, 394);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.buttonDelete);
-            this.tabPage1.Controls.Add(this.buttonAdd);
-            this.tabPage1.Controls.Add(this.foldersList);
-            this.tabPage1.Controls.Add(this.foldersListLabel);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(392, 368);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(149, 339);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Remove All";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.Location = new System.Drawing.Point(230, 339);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete.TabIndex = 3;
-            this.buttonDelete.Text = "Remove";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonRemove_Click);
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAdd.Location = new System.Drawing.Point(311, 339);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 2;
-            this.buttonAdd.Text = "Add";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // foldersList
-            // 
-            this.foldersList.AllowDrop = true;
-            this.foldersList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.foldersList.FormattingEnabled = true;
-            this.foldersList.Location = new System.Drawing.Point(9, 19);
-            this.foldersList.Name = "foldersList";
-            this.foldersList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.foldersList.Size = new System.Drawing.Size(377, 316);
-            this.foldersList.TabIndex = 1;
-            this.foldersList.DragDrop += new System.Windows.Forms.DragEventHandler(this.foldersList_DragDrop);
-            this.foldersList.DragEnter += new System.Windows.Forms.DragEventHandler(this.foldersList_DragEnter);
-            this.foldersList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.foldersList_KeyDown);
-            // 
-            // foldersListLabel
-            // 
-            this.foldersListLabel.AutoSize = true;
-            this.foldersListLabel.Location = new System.Drawing.Point(6, 3);
-            this.foldersListLabel.Name = "foldersListLabel";
-            this.foldersListLabel.Size = new System.Drawing.Size(44, 13);
-            this.foldersListLabel.TabIndex = 0;
-            this.foldersListLabel.Text = "Folders:";
-            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.numericUpDown1);
             this.tabPage2.Controls.Add(this.radioButton3);
             this.tabPage2.Controls.Add(this.radioButton2);
             this.tabPage2.Controls.Add(this.radioButton1);
@@ -280,7 +212,7 @@ namespace imageResizer
             this.buttonOptions.Location = new System.Drawing.Point(93, 426);
             this.buttonOptions.Name = "buttonOptions";
             this.buttonOptions.Size = new System.Drawing.Size(75, 23);
-            this.buttonOptions.TabIndex = 1;
+            this.buttonOptions.TabIndex = 30;
             this.buttonOptions.Text = "Options...";
             this.buttonOptions.UseVisualStyleBackColor = true;
             this.buttonOptions.Click += new System.EventHandler(this.buttonOptions_Click);
@@ -292,7 +224,7 @@ namespace imageResizer
             this.buttonRun.Location = new System.Drawing.Point(337, 426);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.Size = new System.Drawing.Size(75, 23);
-            this.buttonRun.TabIndex = 2;
+            this.buttonRun.TabIndex = 50;
             this.buttonRun.Text = "Run";
             this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
@@ -303,7 +235,7 @@ namespace imageResizer
             this.buttonBack.Location = new System.Drawing.Point(93, 426);
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(75, 23);
-            this.buttonBack.TabIndex = 3;
+            this.buttonBack.TabIndex = 30;
             this.buttonBack.Text = "Back";
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Visible = false;
@@ -315,7 +247,7 @@ namespace imageResizer
             this.buttonCancel.Location = new System.Drawing.Point(256, 426);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 4;
+            this.buttonCancel.TabIndex = 40;
             this.buttonCancel.Text = "Exit";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -326,10 +258,103 @@ namespace imageResizer
             this.buttonAbout.Location = new System.Drawing.Point(12, 426);
             this.buttonAbout.Name = "buttonAbout";
             this.buttonAbout.Size = new System.Drawing.Size(75, 23);
-            this.buttonAbout.TabIndex = 5;
+            this.buttonAbout.TabIndex = 20;
             this.buttonAbout.Text = "About";
             this.buttonAbout.UseVisualStyleBackColor = true;
             this.buttonAbout.Click += new System.EventHandler(this.buttonAbout_Click);
+            // 
+            // foldersListLabel
+            // 
+            this.foldersListLabel.AutoSize = true;
+            this.foldersListLabel.Location = new System.Drawing.Point(6, 3);
+            this.foldersListLabel.Name = "foldersListLabel";
+            this.foldersListLabel.Size = new System.Drawing.Size(0, 13);
+            this.foldersListLabel.TabIndex = 0;
+            // 
+            // foldersList
+            // 
+            this.foldersList.AllowDrop = true;
+            this.foldersList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.foldersList.FormattingEnabled = true;
+            this.foldersList.Location = new System.Drawing.Point(9, 19);
+            this.foldersList.Name = "foldersList";
+            this.foldersList.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.foldersList.Size = new System.Drawing.Size(377, 316);
+            this.foldersList.TabIndex = 1;
+            this.foldersList.DragDrop += new System.Windows.Forms.DragEventHandler(this.foldersList_DragDrop);
+            this.foldersList.DragEnter += new System.Windows.Forms.DragEventHandler(this.foldersList_DragEnter);
+            this.foldersList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.foldersList_KeyDown);
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAdd.Location = new System.Drawing.Point(311, 339);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 80;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDelete.Location = new System.Drawing.Point(230, 339);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 70;
+            this.buttonDelete.Text = "Remove";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(149, 339);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 60;
+            this.button1.Text = "Remove All";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.buttonDelete);
+            this.tabPage1.Controls.Add(this.buttonAdd);
+            this.tabPage1.Controls.Add(this.foldersList);
+            this.tabPage1.Controls.Add(this.foldersListLabel);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(392, 368);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(6, 269);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(65, 20);
+            this.numericUpDown1.TabIndex = 12;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 253);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Image Quality";
             // 
             // Form1
             // 
@@ -340,8 +365,8 @@ namespace imageResizer
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonRun);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonOptions);
+            this.Controls.Add(this.buttonBack);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -350,10 +375,11 @@ namespace imageResizer
             this.Text = "Image Resizer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -361,12 +387,7 @@ namespace imageResizer
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.ListBox foldersList;
-        private System.Windows.Forms.Label foldersListLabel;
         private System.Windows.Forms.Label labelNamingConvention;
         private System.Windows.Forms.Button buttonOptions;
         private System.Windows.Forms.Button buttonRun;
@@ -382,7 +403,14 @@ namespace imageResizer
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.ListBox foldersList;
+        private System.Windows.Forms.Label foldersListLabel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
 

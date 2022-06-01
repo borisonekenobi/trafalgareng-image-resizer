@@ -8,5 +8,6 @@ namespace imageResizer
         public Size MaxImageSize { get; set; }
         public string FolderName { get; set; }
         public int ReducedFolder { get; set; }
+        public long ImageQuality { get; set; }
     }
 }

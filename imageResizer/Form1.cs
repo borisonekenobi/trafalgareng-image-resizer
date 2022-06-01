@@ -57,6 +57,7 @@ namespace imageResizer
             if (this.radioButton1.Checked) options.ReducedFolder = 0;
             else if (this.radioButton2.Checked) options.ReducedFolder = 1;
             else if (this.radioButton3.Checked) options.ReducedFolder = 2;
+            options.ImageQuality = (long) this.numericUpDown1.Value;
 
             int numImages = 0;
             foreach (var path in this.foldersList.Items)

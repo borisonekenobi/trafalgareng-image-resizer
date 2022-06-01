@@ -192,7 +192,7 @@ namespace imageResizer
             // EncoderParameter object in the array.
             EncoderParameters myEncoderParameters = new EncoderParameters(1);
 
-            EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 90L);
+            EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, Options.ImageQuality);
             myEncoderParameters.Param[0] = myEncoderParameter;
             bitmap.Save(destinationPath, jpegEncoder, myEncoderParameters);
             File.SetCreationTime(destinationPath, File.GetCreationTime(sourcePath));
