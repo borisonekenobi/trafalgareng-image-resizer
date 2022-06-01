@@ -32,11 +32,16 @@ namespace imageResizer
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.foldersList = new System.Windows.Forms.ListBox();
             this.foldersListLabel = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -48,10 +53,6 @@ namespace imageResizer
             this.buttonBack = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonAbout = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -72,6 +73,7 @@ namespace imageResizer
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.buttonDelete);
             this.tabPage1.Controls.Add(this.buttonAdd);
             this.tabPage1.Controls.Add(this.foldersList);
@@ -84,6 +86,17 @@ namespace imageResizer
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(149, 339);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Remove All";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -91,9 +104,9 @@ namespace imageResizer
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 23);
             this.buttonDelete.TabIndex = 3;
-            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.Text = "Remove";
             this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            this.buttonDelete.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // buttonAdd
             // 
@@ -149,6 +162,47 @@ namespace imageResizer
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(6, 221);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(250, 17);
+            this.radioButton3.TabIndex = 11;
+            this.radioButton3.Text = "No Changes To Existing Reduced Image Folder";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(6, 198);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(263, 17);
+            this.radioButton2.TabIndex = 10;
+            this.radioButton2.Text = "Skip Folders With Existing Reduced Image Folders";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 175);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(211, 17);
+            this.radioButton1.TabIndex = 9;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Delete Existing Reduced Images Folder";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 159);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(159, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Reduced Images Folder Options";
             // 
             // comboBox3
             // 
@@ -276,47 +330,6 @@ namespace imageResizer
             this.buttonAbout.UseVisualStyleBackColor = true;
             this.buttonAbout.Click += new System.EventHandler(this.buttonAbout_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 159);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Reduced Images Folder Options";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 221);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(250, 17);
-            this.radioButton3.TabIndex = 11;
-            this.radioButton3.Text = "No Changes To Existing Reduced Image Folder";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 198);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(263, 17);
-            this.radioButton2.TabIndex = 10;
-            this.radioButton2.Text = "Skip Folders With Existing Reduced Image Folders";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 175);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(211, 17);
-            this.radioButton1.TabIndex = 9;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Delete Existing Reduced Images Folder";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,6 +381,7 @@ namespace imageResizer
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

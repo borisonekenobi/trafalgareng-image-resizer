@@ -87,7 +87,7 @@ namespace imageResizer
             }
         }
 
-        private void buttonDelete_Click(object sender, EventArgs e)
+        private void buttonRemove_Click(object sender, EventArgs e)
         {
             if (this.foldersList.SelectedItems.Count == 0) return;
             for (int i = this.foldersList.SelectedIndices.Count - 1; i >= 0; i--)
@@ -131,6 +131,14 @@ namespace imageResizer
         private void buttonAbout_Click(object sender, EventArgs e)
         {
             new AboutBox().ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = this.foldersList.Items.Count - 1; i >= 0; i--)
+            {
+                this.foldersList.Items.RemoveAt(i);
+            }
         }
     }
 }
