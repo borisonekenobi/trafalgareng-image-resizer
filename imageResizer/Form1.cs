@@ -140,5 +140,16 @@ namespace imageResizer
                 this.foldersList.Items.RemoveAt(i);
             }
         }
+
+        private void foldersList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A && e.Control)
+            {
+                for (int i = 0; i < foldersList.Items.Count; i++)
+                {
+                    foldersList.SetSelected(i, true);
+                }
+            }
+        }
     }
 }

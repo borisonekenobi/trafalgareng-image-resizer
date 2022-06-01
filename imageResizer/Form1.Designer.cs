@@ -133,6 +133,7 @@ namespace imageResizer
             this.foldersList.TabIndex = 1;
             this.foldersList.DragDrop += new System.Windows.Forms.DragEventHandler(this.foldersList_DragDrop);
             this.foldersList.DragEnter += new System.Windows.Forms.DragEventHandler(this.foldersList_DragEnter);
+            this.foldersList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.foldersList_KeyDown);
             // 
             // foldersListLabel
             // 
