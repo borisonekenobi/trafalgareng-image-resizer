@@ -91,9 +91,9 @@
             this.labelShowMore.AutoSize = true;
             this.labelShowMore.Location = new System.Drawing.Point(12, 91);
             this.labelShowMore.Name = "labelShowMore";
-            this.labelShowMore.Size = new System.Drawing.Size(70, 13);
+            this.labelShowMore.Size = new System.Drawing.Size(71, 13);
             this.labelShowMore.TabIndex = 4;
-            this.labelShowMore.Text = "Show More <";
+            this.labelShowMore.Text = "Show Less ∨";
             this.labelShowMore.Click += new System.EventHandler(this.labelShowMore_Click);
             // 
             // label3
