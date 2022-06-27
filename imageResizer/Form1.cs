@@ -186,7 +186,7 @@ namespace imageResizer
                 {
                     if (MessageBox.Show(this, "A newer version of the software is available. Would you like to download it?", "New version available!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://github.com/borisonekenobi/imageResizer/releases/download/" + latest.TagName + "/imageResizer.exe");
+                        System.Diagnostics.Process.Start("https://github.com/borisonekenobi/imageResizer/archive/refs/tags/" + latest.TagName + ".zip");
                     }
                 }
                 checkedVersion = true;
