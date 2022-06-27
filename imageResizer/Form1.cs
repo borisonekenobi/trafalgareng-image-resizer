@@ -8,6 +8,7 @@ namespace imageResizer
 {
     public partial class Form1 : Form
     {
+        private bool checkedVersion = false;
         public Form1()
         {
             InitializeComponent();
@@ -165,26 +166,30 @@ namespace imageResizer
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            var client = new GitHubClient(new ProductHeaderValue("my-cool-app"));
-            var task = client.Repository.Release.GetAll("Borisonekenobi", "imageResizer");
-            task.Wait();
-            var releases = task.Result;
-            var latest = releases[0];
-
-            string[] versionNums = latest.TagName.Split('.');
-
-            int major = int.Parse(versionNums[0].Split('v')[1]);
-            int minor = int.Parse(versionNums[1]);
-            int patch = int.Parse(versionNums[2]);
-            Version latestVersion = new Version(major, minor, patch);
-            Version version = new Version(System.Windows.Forms.Application.ProductVersion);
-
-            if (latestVersion > version)
+            if (!checkedVersion)
             {
-                if (MessageBox.Show(this, "A newer version of the software is available. Would you like to download it?", "New version available!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                var client = new GitHubClient(new ProductHeaderValue("my-cool-app"));
+                var task = client.Repository.Release.GetAll("Borisonekenobi", "imageResizer");
+                task.Wait();
+                var releases = task.Result;
+                var latest = releases[0];
+
+                string[] versionNums = latest.TagName.Split('.');
+
+                int major = int.Parse(versionNums[0].Split('v')[1]);
+                int minor = int.Parse(versionNums[1]);
+                int patch = int.Parse(versionNums[2]);
+                Version latestVersion = new Version(major, minor, patch);
+                Version version = new Version(System.Windows.Forms.Application.ProductVersion);
+
+                if (latestVersion > version)
                 {
-                    System.Diagnostics.Process.Start("https://github.com/borisonekenobi/imageResizer/releases/download/" + latest.TagName + "/imageResizer.exe");
+                    if (MessageBox.Show(this, "A newer version of the software is available. Would you like to download it?", "New version available!", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start("https://github.com/borisonekenobi/imageResizer/releases/download/" + latest.TagName + "/imageResizer.exe");
+                    }
                 }
+                checkedVersion = true;
             }
         }
     }
