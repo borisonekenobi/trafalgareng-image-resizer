@@ -9,6 +9,8 @@ namespace imageResizer
     public partial class Form1 : Form
     {
         private bool checkedVersion = false;
+        public static Version CurrentVersion { get; set; }
+        public static Version LatestVersion { get; set; }
         public Form1()
         {
             InitializeComponent();
@@ -179,10 +181,10 @@ namespace imageResizer
                 int major = int.Parse(versionNums[0].Split('v')[1]);
                 int minor = int.Parse(versionNums[1]);
                 int patch = int.Parse(versionNums[2]);
-                Version latestVersion = new Version(major, minor, patch);
-                Version version = new Version(System.Windows.Forms.Application.ProductVersion);
+                LatestVersion = new Version(major, minor, patch);
+                CurrentVersion = new Version(System.Windows.Forms.Application.ProductVersion);
 
-                if (latestVersion > version)
+                if (LatestVersion > CurrentVersion)
                 {
                     if (MessageBox.Show(this, "A newer version of the software is available. Would you like to download it?", "New version available!", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {

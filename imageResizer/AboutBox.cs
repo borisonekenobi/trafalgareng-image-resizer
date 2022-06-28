@@ -24,5 +24,10 @@ namespace imageResizer
         {
             System.Diagnostics.Process.Start("mailto:borisonekenobi@gmail.com");
         }
+
+        private void AboutBox_Load(object sender, EventArgs e)
+        {
+            label5.Text = "Current: v" + Form1.CurrentVersion + "\nLatest: v" + Form1.LatestVersion;
+        }
     }
 }
