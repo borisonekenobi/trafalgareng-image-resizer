@@ -1,15 +1,19 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace imageResizer
 {
@@ -31,20 +35,20 @@ namespace imageResizer
             TotalProgress = new Progress<int>(percent => progressBar2.Value = percent);
         }
 
-        private void labelShowMore_Click(object sender, EventArgs e)
+        private void LabelShowMore_Click(object sender, EventArgs e)
         {
             if (_showMore)
             {
                 _showMore = false;
-                this.labelShowMore.Text = "Show More <";
-                this.Size = new Size(700, 200);
-                this.label3.Visible = false;
+                labelShowMore.Text = "Show More <";
+                Size = new Size(700, 200);
+                label3.Visible = false;
                 return;
             }
             _showMore = true;
-            this.labelShowMore.Text = "Show Less ∨";
-            this.Size = new Size(700, 300);
-            this.label3.Visible = true;
+            labelShowMore.Text = "Show Less ∨";
+            Size = new Size(700, 300);
+            label3.Visible = true;
         }
 
         private void ScaleImages()
@@ -67,12 +71,14 @@ namespace imageResizer
                 ResizeImages(path.ToString());
             }
             UpdateLog("Done!");
-            this.buttonCancel.Invoke(new MethodInvoker(() => this.buttonCancel.Text = "Finish"));
-            if (stopProcessing) this.Invoke(new MethodInvoker(() => this.Close()));
+            buttonCancel.Invoke(new MethodInvoker(() => buttonCancel.Text = "Finish"));
+            if (stopProcessing) Invoke(new MethodInvoker(() => Close()));
         }
 
         private async void ProgressBars_Load(object sender, EventArgs e)
         {
+            UpdateTheme();
+
             progressBar1.Value = 0;
             progressBar2.Value = 0;
             progressBar2.Maximum = NumFiles;
@@ -220,10 +226,100 @@ namespace imageResizer
             Console.WriteLine(currentLog);
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            if (this.buttonCancel.Text == "Finish") this.Close();
+            if (buttonCancel.Text == "Finish") Close();
             else stopProcessing = true;
         }
+
+        private void UpdateTheme()
+        {
+            if (Options.Theme == 0)
+            {
+                SetLightTheme();
+            }
+            else if (Options.Theme == 1)
+            {
+                SetDarkTheme();
+            }
+            else
+            {
+                if (UsingLightTheme())
+                {
+                    SetLightTheme();
+                }
+                else
+                {
+                    SetDarkTheme();
+                }
+            }
+        }
+
+        private void SetLightTheme()
+        {
+            BackColor = DefaultBackColor;
+            ForeColor = DefaultForeColor;
+
+            buttonCancel.BackColor = DefaultBackColor;
+            buttonCancel.FlatAppearance.BorderSize = 1;
+        }
+
+        private void SetDarkTheme()
+        {
+            BackColor = backgroundColor;
+            ForeColor = foregroundColor;
+
+            buttonCancel.BackColor = buttonColor;
+            buttonCancel.FlatAppearance.BorderSize = buttonBorderSize;
+        }
+
+        private static bool UsingLightTheme()
+        {
+            var registryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            var appsUseLightTheme = registryKey?.GetValue("AppsUseLightTheme");
+
+            if (appsUseLightTheme is null)
+            {
+                return true;
+            }
+            else
+            {
+                return Convert.ToBoolean(appsUseLightTheme, CultureInfo.InvariantCulture);
+            }
+        }
+
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+
+        private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 = 19;
+        private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
+
+        internal static bool UseImmersiveDarkMode(IntPtr handle, bool enabled)
+        {
+            if (IsWindows10OrGreater(17763))
+            {
+                var attribute = DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1;
+                if (IsWindows10OrGreater(18985))
+                {
+                    attribute = DWMWA_USE_IMMERSIVE_DARK_MODE;
+                }
+
+                int useImmersiveDarkMode = enabled ? 1 : 0;
+                return DwmSetWindowAttribute(handle, (int)attribute, ref useImmersiveDarkMode, sizeof(int)) == 0;
+            }
+
+            return false;
+        }
+
+        private static bool IsWindows10OrGreater(int build = -1)
+        {
+            return Environment.OSVersion.Version.Major >= 10 && Environment.OSVersion.Version.Build >= build;
+        }
+
+        // styles for dark mode
+        Color backgroundColor = Color.FromArgb(12, 12, 12);
+        Color foregroundColor = Color.White;
+        Color buttonColor = Color.FromArgb(44, 44, 44);
+        int buttonBorderSize = 0;
     }
 }

@@ -77,13 +77,14 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCancel.Location = new System.Drawing.Point(597, 226);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // labelShowMore
             // 
@@ -94,7 +95,7 @@
             this.labelShowMore.Size = new System.Drawing.Size(71, 13);
             this.labelShowMore.TabIndex = 4;
             this.labelShowMore.Text = "Show Less ∨";
-            this.labelShowMore.Click += new System.EventHandler(this.labelShowMore_Click);
+            this.labelShowMore.Click += new System.EventHandler(this.LabelShowMore_Click);
             // 
             // label3
             // 
