@@ -20,12 +20,61 @@ namespace imageResizer
         private Options options;
         private readonly string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ImageResizer");
         private readonly string fileFullPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ImageResizer"), "options.xml");
+        
         public Form1()
         {
             InitializeComponent();
             tabControl1.Appearance = TabAppearance.FlatButtons;
             tabControl1.ItemSize = new Size(0, 1);
             tabControl1.SizeMode = TabSizeMode.Fixed;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (File.Exists(fileFullPath))
+            {
+                var serializer = new XmlSerializer(typeof(Options));
+                using (var fs = new FileStream(fileFullPath, System.IO.FileMode.Open))
+                {
+                    options = (Options)serializer.Deserialize(fs);
+
+                }
+
+                comboBox1.SelectedIndex = comboBox1.Items.IndexOf(options.NamingConvention) == -1 ? 0 : comboBox1.Items.IndexOf(options.NamingConvention);
+                switch (options.MaxImageSize.Height)
+                {
+                    case 480: comboBox2.SelectedIndex = 0; break;
+                    case 600: comboBox2.SelectedIndex = 1; break;
+                    case 768: comboBox2.SelectedIndex = 2; break;
+                    case 1024: comboBox2.SelectedIndex = 3; break;
+                    default: comboBox2.SelectedIndex = 3; break;
+                }
+                comboBox3.SelectedIndex = comboBox3.Items.IndexOf(options.FolderName) == -1 ? 0 : comboBox3.Items.IndexOf(options.FolderName);
+
+                switch (options.ReducedFolder)
+                {
+                    case 0: radioButton1.Checked = true; break;
+                    case 1: radioButton2.Checked = true; break;
+                    case 2: radioButton3.Checked = true; break;
+                }
+
+                numericUpDown1.Value = options.ImageQuality;
+
+                switch (options.Theme)
+                {
+                    case 0: radioButton4.Checked = true; break;
+                    case 1: radioButton5.Checked = true; break;
+                    case 2: radioButton6.Checked = true; break;
+                }
+            }
+            else
+            {
+                comboBox1.SelectedIndex = 0;
+                comboBox2.SelectedIndex = 3;
+                comboBox3.SelectedIndex = 0;
+            }
+
+            UpdateTheme();
         }
 
         private void ButtonOptions_Click(object sender, EventArgs e)
@@ -158,54 +207,6 @@ namespace imageResizer
                 e.Effect = DragDropEffects.None;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            if (File.Exists(fileFullPath))
-            {
-                var serializer = new XmlSerializer(typeof(Options));
-                using (var fs = new FileStream(fileFullPath, System.IO.FileMode.Open))
-                {
-                    options = (Options)serializer.Deserialize(fs);
-
-                }
-
-                comboBox1.SelectedIndex = comboBox1.Items.IndexOf(options.NamingConvention) == -1 ? 0 : comboBox1.Items.IndexOf(options.NamingConvention);
-                switch (options.MaxImageSize.Height)
-                {
-                    case 480: comboBox2.SelectedIndex = 0; break;
-                    case 600: comboBox2.SelectedIndex = 1; break;
-                    case 768: comboBox2.SelectedIndex = 2; break;
-                    case 1024: comboBox2.SelectedIndex = 3; break;
-                    default: comboBox2.SelectedIndex = 3; break;
-                }
-                comboBox3.SelectedIndex = comboBox3.Items.IndexOf(options.FolderName) == -1 ? 0 : comboBox3.Items.IndexOf(options.FolderName);
-
-                switch (options.ReducedFolder)
-                {
-                    case 0: radioButton1.Checked = true; break;
-                    case 1: radioButton2.Checked = true; break;
-                    case 2: radioButton3.Checked = true; break;
-                }
-
-                numericUpDown1.Value = options.ImageQuality;
-
-                switch (options.Theme)
-                {
-                    case 0: radioButton4.Checked = true; break;
-                    case 1: radioButton5.Checked = true; break;
-                    case 2: radioButton6.Checked = true; break;
-                }
-            }
-            else
-            {
-                comboBox1.SelectedIndex = 0;
-                comboBox2.SelectedIndex = 3;
-                comboBox3.SelectedIndex = 0;
-            }
-
-            UpdateTheme();
-        }
-
         private void ButtonAbout_Click(object sender, EventArgs e)
         {
             new AboutBox
@@ -308,6 +309,8 @@ namespace imageResizer
 
         private void SetLightTheme()
         {
+            UseImmersiveDarkMode(Handle, false);
+
             BackColor = DefaultBackColor;
             ForeColor = DefaultForeColor;
 
@@ -358,6 +361,8 @@ namespace imageResizer
 
         private void SetDarkTheme()
         {
+            UseImmersiveDarkMode(Handle, true);
+
             BackColor = backgroundColor;
             ForeColor = foregroundColor;
 

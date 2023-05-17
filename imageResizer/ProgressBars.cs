@@ -257,6 +257,8 @@ namespace imageResizer
 
         private void SetLightTheme()
         {
+            UseImmersiveDarkMode(Handle, false);
+
             BackColor = DefaultBackColor;
             ForeColor = DefaultForeColor;
 
@@ -266,6 +268,8 @@ namespace imageResizer
 
         private void SetDarkTheme()
         {
+            UseImmersiveDarkMode(Handle, true);
+
             BackColor = backgroundColor;
             ForeColor = foregroundColor;
 
